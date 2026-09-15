@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Present – Narrative Challenge</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#1f2937;line-height:1.55}
+  .wrap{max-width:1050px;margin:auto;padding:22px}
+  header{background:#fff;border-radius:18px;padding:22px 24px;box-shadow:0 4px 18px rgba(0,0,0,.07);margin-bottom:18px}
+  h1{margin:0 0 4px;font-size:28px}
+  .subtitle{margin:0;color:#64748b}
+  .topbar{position:sticky;top:0;z-index:10;background:#f4f7fb;padding:10px 0}
+  .timerbox{background:#111827;color:#fff;border-radius:14px;padding:12px 18px;display:flex;justify-content:space-between;align-items:center;gap:15px;box-shadow:0 4px 15px rgba(0,0,0,.12)}
+  #timer{font-size:25px;font-weight:800;letter-spacing:1px}
+  #timer.warning{color:#fbbf24}
+  #timer.danger{color:#f87171}
+  .progress{height:8px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin-top:8px}
+  #progressBar{height:100%;width:0;background:#2563eb;transition:width .2s}
+  section{background:#fff;border-radius:18px;padding:22px;margin:18px 0;box-shadow:0 3px 15px rgba(0,0,0,.055)}
+  h2{margin-top:0;font-size:21px}
+  h3{font-size:17px;margin-bottom:8px}
+  label{font-weight:700;display:block;margin:10px 0 5px}
+  input,select,textarea{width:100%;padding:11px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff}
+  textarea{min-height:105px;resize:vertical}
+  .grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+  .story{background:#f8fafc;border-left:4px solid #2563eb;border-radius:10px;padding:14px;margin:9px 0}
+  .story p{margin:0}
+  .q{border:1px solid #e2e8f0;border-radius:13px;padding:16px;margin:14px 0}
+  .qtitle{font-weight:800;margin-bottom:8px}
+  .option{display:flex;gap:9px;align-items:flex-start;font-weight:400;margin:8px 0;padding:7px;border-radius:8px}
+  .option:hover{background:#f8fafc}
+  .option input{width:auto;margin-top:5px}
+  .evidence-btn{border:0;background:#e0e7ff;color:#3730a3;padding:7px 10px;border-radius:8px;cursor:pointer;font-weight:700;font-size:13px;margin:5px 0}
+  .evidence{display:none;background:#fff7ed;border-left:3px solid #f59e0b;padding:10px 12px;border-radius:8px;margin:8px 0;font-size:14px}
+  .note{background:#eff6ff;border-radius:10px;padding:12px 14px;font-size:14px}
+  .wordcount{font-size:12px;color:#64748b;text-align:right;margin-top:4px}
+  button.submit{width:100%;border:0;background:#2563eb;color:#fff;padding:15px;border-radius:12px;font-size:17px;font-weight:800;cursor:pointer}
+  button.submit:disabled{opacity:.55;cursor:not-allowed}
+  .status{margin-top:12px;padding:12px;border-radius:10px;display:none}
+  .success{background:#dcfce7;color:#166534}
+  .error{background:#fee2e2;color:#991b1b}
+  .small{font-size:13px;color:#64748b}
+  .locked{pointer-events:none;opacity:.7}
+  @media(max-width:700px){.grid{grid-template-columns:1fr}h1{font-size:23px}.wrap{padding:12px}}
+  @media print{.topbar{position:static}.evidence{display:block!important}button{display:none}}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<header>
+  <h1>The Present – Narrative Challenge</h1>
+  <p class="subtitle">English – Narrative Text | Individual Task | Maximum Time: 100 Minutes</p>
+</header>
+
+<div class="topbar">
+  <div class="timerbox">
+    <div><strong>TIME REMAINING</strong><div class="small" style="color:#cbd5e1">Complete and submit before the timer ends.</div></div>
+    <div id="timer">100:00</div>
+  </div>
+  <div class="progress"><div id="progressBar"></div></div>
+</div>
+
+<form id="testForm">
+
+<section id="identity">
+  <h2>1. Student Information</h2>
+  <div class="grid">
+    <div>
+      <label for="name">Full Name</label>
+      <input id="name" name="name" required autocomplete="off">
+    </div>
+    <div>
+      <label for="className">Class</label>
+      <input id="className" name="className" required autocomplete="off">
+    </div>
+    <div>
+      <label for="absentNumber">Absent No.</label>
+      <input id="absentNumber" name="absentNumber" required autocomplete="off">
+    </div>
+  </div>
+  <p class="note">Read the story carefully. For text-based questions, use the <b>Open Evidence</b> button and choose answers based on the evidence in the story.</p>
+  <button type="button" onclick="startTest()" style="margin-top:10px;padding:11px 18px;border:0;border-radius:10px;background:#111827;color:#fff;font-weight:700;cursor:pointer">Start 100-Minute Task</button>
+</section>
+
+<div id="taskArea" class="locked" aria-disabled="true">
+
+<section>
+  <h2>2. Read the Story</h2>
+  <p class="small">Do not translate the story word by word. Focus on the main idea, characters, events, and evidence.</p>
+
+  <div class="story"><b>Paragraph 1</b><p>Jason is a teenage boy who spends most of his time inside his room, playing video games. His mother worries because he seems more comfortable in his virtual world than in the real world.</p></div>
+  <div class="story"><b>Paragraph 2</b><p>One day, Jason's mother comes home carrying a small cardboard box. She smiles and says that she has something special for him.</p></div>
+  <div class="story"><b>Paragraph 3</b><p>Inside the box is an energetic puppy. The puppy immediately tries to play with Jason and moves around excitedly.</p></div>
+  <div class="story"><b>Paragraph 4</b><p>Jason notices that the puppy has only three legs. He looks disappointed and does not seem interested in playing with it.</p></div>
+  <div class="story"><b>Paragraph 5</b><p>His mother explains that the puppy was born missing one leg. Jason listens for a moment, then turns back to his video game.</p></div>
+  <div class="story"><b>Paragraph 6</b><p>The puppy keeps trying to get Jason's attention. Jason ignores it and finally says, “Go away!” The puppy does not give up.</p></div>
+  <div class="story"><b>Paragraph 7</b><p>The puppy sees a ball and runs after it. Although it has only three legs, it moves confidently and happily.</p></div>
+  <div class="story"><b>Paragraph 8</b><p>The puppy falls while chasing the ball. It gets up and tries again. Jason watches the puppy and slowly becomes interested in what it is doing.</p></div>
+  <div class="story"><b>Paragraph 9</b><p>The puppy walks toward the door and looks back at Jason. Jason slowly gets up from his chair and follows the puppy.</p></div>
+  <div class="story"><b>Paragraph 10</b><p>Jason realizes that he and the puppy may not be so different. The puppy's physical limitation does not stop it from enjoying life. Jason begins to think that perhaps the bigger problem is the way he has looked at himself.</p></div>
+  <div class="story"><b>Paragraph 11</b><p>Jason goes outside with the puppy. For the first time in a long while, he leaves his virtual world and becomes active in the real world.</p></div>
+  <div class="story"><b>Paragraph 12</b><p>The puppy's greatest gift is not simply friendship. It gives Jason a new way of seeing himself and encourages him to face the real world with more confidence.</p></div>
+</section>
+
+<section>
+  <h2>3. Reading Comprehension</h2>
+
+  <div class="q"><div class="qtitle">U1. Why is Jason's mother worried about him?</div>
+    <button type="button" class="evidence-btn" onclick="toggleEvidence('e1')">Open Evidence</button>
+    <div id="e1" class="evidence"><b>Paragraph 1:</b> Jason spends most of his time in his room playing video games, and his mother worries about his preference for the virtual world.</div>
+    <label class="option"><input type="radio" name="u1" value="0"> He spends too much time in his virtual world.</label>
+    <label class="option"><input type="radio" name="u1" value="1"> He does not like his mother.</label>
+    <label class="option"><input type="radio" name="u1" value="2"> He wants to buy a new puppy.</label>
+    <label class="option"><input type="radio" name="u1" value="3"> He always goes outside.</label>
+  </div>
+
+  <div class="q"><div class="qtitle">U2. What does Jason first think about the puppy?</div>
+    <button type="button" class="evidence-btn" onclick="toggleEvidence('e2')">Open Evidence</button>
+    <div id="e2" class="evidence"><b>Paragraph 4:</b> Jason notices that the puppy has only three legs and looks disappointed.</div>
+    <label class="option"><input type="radio" name="u2" value="0"> He thinks it is perfect.</label>
+    <label class="option"><input type="radio" name="u2" value="1"> He is disappointed.</label>
+    <label class="option"><input type="radio" name="u2" value="2"> He is immediately afraid.</label>
+    <label class="option"><input type="radio" name="u2" value="3"> He wants to train it.</label>
+  </div>
+
+  <div class="q"><div class="qtitle">U3. What does the puppy do after Jason tells it to go away?</div>
+    <button type="button" class="evidence-btn" onclick="toggleEvidence('e3')">Open Evidence</button>
+    <div id="e3" class="evidence"><b>Paragraph 6:</b> The puppy continues trying to get Jason's attention and does not give up.</div>
+    <label class="option"><input type="radio" name="u3" value="0"> It hides in the box.</label>
+    <label class="option"><input type="radio" name="u3" value="1"> It leaves the house.</label>
+    <label class="option"><input type="radio" name="u3" value="2"> It keeps trying to get his attention.</label>
+    <label class="option"><input type="radio" name="u3" value="3"> It starts playing a video game.</label>
+  </div>
+
+  <div class="q"><div class="qtitle">U4. What makes Jason become interested in the puppy?</div>
+    <button type="button" class="evidence-btn" onclick="toggleEvidence('e4')">Open Evidence</button>
+    <div id="e4" class="evidence"><b>Paragraph 8:</b> The puppy falls, gets up, and tries again. Jason notices its persistence.</div>
+    <label class="option"><input type="radio" name="u4" value="0"> The puppy keeps trying after falling.</label>
+    <label class="option"><input type="radio" name="u4" value="1"> The puppy starts talking.</label>
+    <label class="option"><input type="radio" name="u4" value="2"> His mother gives him a new game.</label>
+    <label class="option"><input type="radio" name="u4" value="3"> The puppy becomes angry.</label>
+  </div>
+
+  <div class="q"><div class="qtitle">U5. What is the main change in Jason at the end?</div>
+    <button type="button" class="evidence-btn" onclick="toggleEvidence('e5')">Open Evidence</button>
+    <div id="e5" class="evidence"><b>Paragraphs 10–12:</b> Jason changes how he sees himself and becomes willing to face the real world.</div>
+    <label class="option"><input type="radio" name="u5" value="0"> He becomes more interested in video games.</label>
+    <label class="option"><input type="radio" name="u5" value="1"> He decides to stay alone.</label>
+    <label class="option"><input type="radio" name="u5" value="2"> He becomes more confident about facing real life.</label>
+    <label class="option"><input type="radio" name="u5" value="3"> He sends the puppy away.</label>
+  </div>
+</section>
+
+<section>
+  <h2>4. Evidence Hunt</h2>
+  <p class="note">Choose the paragraph that gives the strongest evidence for each statement.</p>
+
+  <div class="q"><div class="qtitle">E1. Jason prefers his virtual world to real life.</div>
+    <select name="evidence1"><option value="">Choose a paragraph</option><option value="1">Paragraph 1</option><option value="4">Paragraph 4</option><option value="8">Paragraph 8</option><option value="11">Paragraph 11</option></select>
+  </div>
+
+  <div class="q"><div class="qtitle">E2. The puppy is persistent.</div>
+    <select name="evidence2"><option value="">Choose a paragraph</option><option value="3">Paragraph 3</option><option value="6">Paragraph 6</option><option value="9">Paragraph 9</option><option value="12">Paragraph 12</option></select>
+  </div>
+
+  <div class="q"><div class="qtitle">E3. The puppy's limitation does not stop it from trying.</div>
+    <select name="evidence3"><option value="">Choose a paragraph</option><option value="2">Paragraph 2</option><option value="5">Paragraph 5</option><option value="7">Paragraph 7</option><option value="10">Paragraph 10</option></select>
+  </div>
+
+  <div class="q"><div class="qtitle">E4. Jason begins to change his way of thinking.</div>
+    <select name="evidence4"><option value="">Choose a paragraph</option><option value="4">Paragraph 4</option><option value="6">Paragraph 6</option><option value="8">Paragraph 8</option><option value="10">Paragraph 10</option></select>
+  </div>
+
+  <div class="q"><div class="qtitle">E5. Jason finally leaves his virtual world.</div>
+    <select name="evidence5"><option value="">Choose a paragraph</option><option value="5">Paragraph 5</option><option value="7">Paragraph 7</option><option value="9">Paragraph 9</option><option value="11">Paragraph 11</option></select>
+  </div>
+</section>
+
+<section>
+  <h2>5. Character & Characterization</h2>
+
+  <div class="q"><div class="qtitle">C1. Which traits describe Jason at the beginning? Select THREE.</div>
+    <label class="option"><input type="checkbox" name="c1" value="0"> Isolated</label>
+    <label class="option"><input type="checkbox" name="c1" value="1"> Impatient</label>
+    <label class="option"><input type="checkbox" name="c1" value="2"> Confident</label>
+    <label class="option"><input type="checkbox" name="c1" value="3"> Indifferent</label>
+  </div>
+
+  <div class="q"><div class="qtitle">C2. Which traits describe the puppy? Select TWO.</div>
+    <label class="option"><input type="checkbox" name="c2" value="0"> Persistent</label>
+    <label class="option"><input type="checkbox" name="c2" value="1"> Confident</label>
+    <label class="option"><input type="checkbox" name="c2" value="2"> Easily discouraged</label>
+    <label class="option"><input type="checkbox" name="c2" value="3"> Unfriendly</label>
+  </div>
+
+  <div class="q"><div class="qtitle">C3. Which character has the greatest effect on Jason's change?</div>
+    <label class="option"><input type="radio" name="c3" value="0"> His teacher</label>
+    <label class="option"><input type="radio" name="c3" value="1"> His friend</label>
+    <label class="option"><input type="radio" name="c3" value="2"> The puppy</label>
+    <label class="option"><input type="radio" name="c3" value="3"> Nobody</label>
+  </div>
+
+  <div class="q"><div class="qtitle">C4. Give one piece of evidence that shows the puppy is persistent.</div>
+    <button type="button" class="evidence-btn" onclick="toggleEvidence('c4e')">Open Evidence</button>
+    <div id="c4e" class="evidence"><b>Paragraph 8:</b> The puppy falls, gets up, and tries again.</div>
+    <textarea name="c4" placeholder="Write a short answer in English."></textarea>
+  </div>
+</section>
+
+<section>
+  <h2>6. Plot Analysis</h2>
+
+  <div class="q"><div class="qtitle">P1. Which event is the exposition?</div>
+    <label class="option"><input type="radio" name="p1" value="0"> Jason spends most of his time playing video games.</label>
+    <label class="option"><input type="radio" name="p1" value="1"> Jason goes outside with the puppy.</label>
+    <label class="option"><input type="radio" name="p1" value="2"> Jason realizes the lesson.</label>
+    <label class="option"><input type="radio" name="p1" value="3"> The puppy runs after the ball.</label>
+  </div>
+
+  <div class="q"><div class="qtitle">P2. Which event develops the conflict?</div>
+    <label class="option"><input type="radio" name="p2" value="0"> Jason happily plays outside.</label>
+    <label class="option"><input type="radio" name="p2" value="1"> Jason ignores the puppy and returns to his game.</label>
+    <label class="option"><input type="radio" name="p2" value="2"> Jason thanks his mother.</label>
+    <label class="option"><input type="radio" name="p2" value="3"> The puppy goes to sleep.</label>
+  </div>
+
+  <div class="q"><div class="qtitle">P3. What is the turning point that starts Jason's change?</div>
+    <label class="option"><input type="radio" name="p3" value="0"> He watches the puppy fall and try again.</label>
+    <label class="option"><input type="radio" name="p3" value="1"> His mother leaves the house.</label>
+    <label class="option"><input type="radio" name="p3" value="2"> He starts another video game.</label>
+    <label class="option"><input type="radio" name="p3" value="3"> The puppy enters the box.</label>
+  </div>
+
+  <div class="q"><div class="qtitle">P4. Which event is closest to the resolution?</div>
+    <label class="option"><input type="radio" name="p4" value="0"> Jason goes outside with the puppy.</label>
+    <label class="option"><input type="radio" name="p4" value="1"> Jason first sees the puppy.</label>
+    <label class="option"><input type="radio" name="p4" value="2"> Jason ignores the puppy.</label>
+    <label class="option"><input type="radio" name="p4" value="3"> The puppy falls.</label>
+  </div>
+</section>
+
+<section>
+  <h2>7. HOTS – Critical Thinking</h2>
+
+  <div class="q"><div class="qtitle">H1. What is the relationship between Jason and the puppy's problems?</div>
+    <label class="option"><input type="radio" name="h1" value="0"> They are completely unrelated.</label>
+    <label class="option"><input type="radio" name="h1" value="1"> Jason has a physical limitation like the puppy.</label>
+    <label class="option"><input type="radio" name="h1" value="2"> Both face limitations, but their attitudes are important.</label>
+    <label class="option"><input type="radio" name="h1" value="3"> The puppy causes Jason's problem.</label>
+  </div>
+
+  <div class="q"><div class="qtitle">H2. Which paragraph best expresses the story's deeper message?</div>
+    <select name="h2"><option value="">Choose</option><option value="1">Paragraph 1</option><option value="6">Paragraph 6</option><option value="10">Paragraph 10</option><option value="11">Paragraph 11</option></select>
+  </div>
+
+  <div class="q"><div class="qtitle">H3. Why is the puppy an effective character for Jason's transformation?</div>
+    <textarea name="h3" placeholder="Explain your reasoning in 2–4 sentences."></textarea>
+  </div>
+
+  <div class="q"><div class="qtitle">H4. If Jason had never followed the puppy to the door, what might happen to him?</div>
+    <textarea name="h4" placeholder="Predict a logical consequence based on the story."></textarea>
+  </div>
+
+  <div class="q"><div class="qtitle">H5. Do you think Jason's problem is mainly his situation or his way of thinking? Explain using evidence.</div>
+    <textarea name="h5" placeholder="State your claim and support it with evidence from the story."></textarea>
+  </div>
+
+  <div class="q"><div class="qtitle">H6. Which paragraph gives the clearest evidence that failure does not stop the puppy?</div>
+    <select name="h6"><option value="">Choose</option><option value="6">Paragraph 6</option><option value="7">Paragraph 7</option><option value="8">Paragraph 8</option><option value="10">Paragraph 10</option></select>
+  </div>
+</section>
+
+<section>
+  <h2>8. Alternative Ending</h2>
+  <p class="note">Change <b>ONE decision</b> made by Jason. Then predict what would happen next. Your ending must be connected to the original story.</p>
+  <textarea id="alternativeEnding" name="alternativeEnding" placeholder="Write 100–150 words in English."></textarea>
+  <div class="wordcount" id="altCount">0 words</div>
+</section>
+
+<section>
+  <h2>9. Personal Reflection</h2>
+
+  <div class="q">
+    <div class="qtitle">R1. What is one lesson from the story that you can apply to learning English?</div>
+    <textarea name="reflection1" placeholder="Answer in English."></textarea>
+  </div>
+
+  <div class="q">
+    <div class="qtitle">R2. Which character or event do you remember most? Why?</div>
+    <textarea name="reflection2" placeholder="Answer in English."></textarea>
+  </div>
+
+  <div class="q">
+    <div class="qtitle">R3. Choose one paragraph that is important to you and explain why.</div>
+    <textarea name="reflection3" placeholder="Mention the paragraph number and explain your reason."></textarea>
+  </div>
+</section>
+
+<section>
+  <h2>10. My Evidence Card</h2>
+  <p class="note">This is your final evidence of reading. Complete it without copying another student's answer.</p>
+
+  <label>One important event:</label>
+  <input name="evidenceCardEvent" autocomplete="off">
+
+  <label>Paragraph number:</label>
+  <input name="evidenceCardParagraph" type="number" min="1" max="12">
+
+  <label>Why is this event important?</label>
+  <textarea name="evidenceCard" placeholder="Explain in 2–3 sentences."></textarea>
+</section>
+
+<section>
+  <h2>11. Final Check</h2>
+  <label class="option"><input type="checkbox" id="check1"> I have answered the questions that require evidence from the story.</label>
+  <label class="option"><input type="checkbox" id="check2"> I have written my own responses.</label>
+  <label class="option"><input type="checkbox" id="check3"> I have checked my English before submitting.</label>
+</section>
+
+<section>
+  <button type="submit" class="submit" id="submitBtn">SUBMIT MY ANSWERS</button>
+  <div id="status" class="status"></div>
+</section>
+
+</div>
+</form>
+</div>
+
+<script>
+/* =====================================================
+   CONFIGURATION
+   Paste your deployed Google Apps Script Web App URL here.
+   Example:
+   const APPS_SCRIPT_URL = "https://script.google.com/macros/s/XXXXXXXX/exec";
+===================================================== */
+const APPS_SCRIPT_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+const TOTAL_SECONDS = 100 * 60;
+let remainingSeconds = TOTAL_SECONDS;
+let timerInterval = null;
+let started = false;
+let submitted = false;
+let startTime = null;
+
+function startTest(){
+  const name = document.getElementById("name").value.trim();
+  const cls = document.getElementById("className").value.trim();
+  const absent = document.getElementById("absentNumber").value.trim();
+
+  if(!name || !cls || !absent){
+    alert("Please complete your name, class, and absent number first.");
+    return;
+  }
+
+  if(started) return;
+
+  started = true;
+  startTime = new Date().toISOString();
+
+  document.getElementById("taskArea").classList.remove("locked");
+  document.getElementById("taskArea").setAttribute("aria-disabled","false");
+
+  document.querySelector("#identity button").disabled = true;
+  document.querySelector("#identity button").textContent = "Task Started";
+
+  timerInterval = setInterval(updateTimer,1000);
+  updateTimer();
+  updateProgress();
+}
+
+function updateTimer(){
+  if(remainingSeconds <= 0){
+    clearInterval(timerInterval);
+    remainingSeconds = 0;
+    renderTimer();
+    autoSubmit();
+    return;
+  }
+
+  remainingSeconds--;
+  renderTimer();
+}
+
+function renderTimer(){
+  const min = Math.floor(remainingSeconds/60);
+  const sec = remainingSeconds%60;
+  const timer = document.getElementById("timer");
+
+  timer.textContent =
+    String(min).padStart(2,"0") + ":" +
+    String(sec).padStart(2,"0");
+
+  timer.classList.remove("warning","danger");
+
+  if(remainingSeconds <= 10*60) timer.classList.add("warning");
+  if(remainingSeconds <= 5*60) timer.classList.add("danger");
+}
+
+function toggleEvidence(id){
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === "block" ? "none" : "block";
+}
+
+function getChecked(name){
+  return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked'))
+    .map(x=>x.value)
+    .sort();
+}
+
+function getValue(name){
+  const el = document.querySelector('[name="'+name+'"]');
+  return el ? el.value : "";
+}
+
+function collectAnswers(){
+  return {
+    name: getValue("name"),
+    className: getValue("className"),
+    absentNumber: getValue("absentNumber"),
+
+    startTime: startTime,
+    submitTime: new Date().toISOString(),
+
+    u1:getValue("u1"),
+    u2:getValue("u2"),
+    u3:getValue("u3"),
+    u4:getValue("u4"),
+    u5:getValue("u5"),
+
+    evidence1:getValue("evidence1"),
+    evidence2:getValue("evidence2"),
+    evidence3:getValue("evidence3"),
+    evidence4:getValue("evidence4"),
+    evidence5:getValue("evidence5"),
+
+    c1:getChecked("c1"),
+    c2:getChecked("c2"),
+    c3:getValue("c3"),
+    c4:getValue("c4"),
+
+    p1:getValue("p1"),
+    p2:getValue("p2"),
+    p3:getValue("p3"),
+    p4:getValue("p4"),
+
+    h1:getValue("h1"),
+    h2:getValue("h2"),
+    h3:getValue("h3"),
+    h4:getValue("h4"),
+    h5:getValue("h5"),
+    h6:getValue("h6"),
+
+    alternativeEnding:getValue("alternativeEnding"),
+
+    reflection1:getValue("reflection1"),
+    reflection2:getValue("reflection2"),
+    reflection3:getValue("reflection3"),
+
+    evidenceCardEvent:getValue("evidenceCardEvent"),
+    evidenceCardParagraph:getValue("evidenceCardParagraph"),
+    evidenceCard:getValue("evidenceCard")
+  };
+}
+
+async function submitAnswers(isAuto=false){
+
+  if(submitted) return;
+
+  if(!isAuto){
+    if(!started){
+      alert("Please start the task first.");
+      return;
+    }
+
+    if(!document.getElementById("check1").checked ||
+       !document.getElementById("check2").checked ||
+       !document.getElementById("check3").checked){
+      alert("Please complete the final checklist before submitting.");
+      return;
+    }
+
+    if(!confirm("Are you sure you want to submit your answers? You cannot edit them after submission.")){
+      return;
+    }
+  }
+
+  submitted = true;
+  clearInterval(timerInterval);
+
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = isAuto ? "TIME IS UP – SUBMITTING..." : "SUBMITTING...";
+
+  const data = collectAnswers();
+
+  try{
+    if(!APPS_SCRIPT_URL.startsWith("https://script.google.com")){
+      showStatus(
+        "HTML is ready, but the Google Apps Script URL has not been inserted yet. Your answers are not connected to the Spreadsheet.",
+        "error"
+      );
+      btn.textContent = "SUBMISSION CONFIGURATION NEEDED";
+      submitted = false;
+      return;
+    }
+
+    await fetch(APPS_SCRIPT_URL,{
+      method:"POST",
+      mode:"no-cors",
+      headers:{
+        "Content-Type":"text/plain;charset=utf-8"
+      },
+      body:JSON.stringify(data)
+    });
+
+    showStatus(
+      isAuto
+      ? "Time is up. Your answers have been sent for submission."
+      : "Your answers have been submitted successfully.",
+      "success"
+    );
+
+    document.getElementById("taskArea").classList.add("locked");
+    btn.textContent = "SUBMITTED";
+
+  }catch(err){
+    submitted = false;
+    btn.disabled = false;
+    btn.textContent = "TRY SUBMIT AGAIN";
+    showStatus("Submission failed. Please check your internet connection and try again.","error");
+  }
+}
+
+function autoSubmit(){
+  alert("Your 100-minute time limit is over. The form will now be submitted.");
+  submitAnswers(true);
+}
+
+function showStatus(message,type){
+  const el = document.getElementById("status");
+  el.textContent = message;
+  el.className = "status " + type;
+  el.style.display = "block";
+}
+
+function updateProgress(){
+  const fields = Array.from(document.querySelectorAll("#taskArea input, #taskArea select, #taskArea textarea"));
+  const answered = fields.filter(el=>{
+    if(el.type==="checkbox" || el.type==="radio") return el.checked;
+    return el.value.trim() !== "";
+  }).length;
+
+  const percent = fields.length ? Math.round(answered/fields.length*100) : 0;
+  document.getElementById("progressBar").style.width = percent + "%";
+}
+
+document.getElementById("testForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  submitAnswers(false);
+});
+
+document.getElementById("alternativeEnding").addEventListener("input",function(){
+  const words = this.value.trim() ? this.value.trim().split(/\s+/).length : 0;
+  document.getElementById("altCount").textContent = words + " words";
+});
+
+document.addEventListener("input",updateProgress);
+document.addEventListener("change",updateProgress);
+
+/* Basic copy/translation deterrence.
+   This is NOT foolproof security. */
+document.addEventListener("contextmenu",function(e){
+  if(e.target.closest(".story,.q,.subtitle,h1,h2,h3")) e.preventDefault();
+});
+
+document.addEventListener("copy",function(e){
+  if(window.getSelection && window.getSelection().toString().trim() &&
+     !e.target.closest("input,textarea")){
+    e.preventDefault();
+  }
+});
+
+document.addEventListener("dragstart",function(e){
+  if(e.target.closest(".story,.q")) e.preventDefault();
+});
+
+document.addEventListener("keydown",function(e){
+  const target = e.target;
+  const inAnswerBox = target.matches("input,textarea,select");
+
+  if(!inAnswerBox && (e.ctrlKey || e.metaKey) &&
+     ["c","x","u","s","p"].includes(e.key.toLowerCase())){
+    e.preventDefault();
+  }
+
+  if(!inAnswerBox && (e.ctrlKey || e.metaKey) && e.key.toLowerCase()==="a"){
+    e.preventDefault();
+  }
+});
+</script>
+</body>
+</html>
